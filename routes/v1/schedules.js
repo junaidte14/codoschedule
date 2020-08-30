@@ -23,9 +23,10 @@ router.post('/', authFunc.checkAdminAuthenticated, (req, res) => {
 });
 
 //read all Schedules
-router.get('/', authFunc.checkAdminAuthenticated, (req, res) => {
+router.get('/', (req, res) => {
     Schedule.find({}).sort({"date":1}).exec(function(err, Schedules) {
         if (err) return res.status(500).json({success: false, message: err.message});
+        mongoose.connection.close();
         res.status(200).send(JSON.stringify({success: true, data: Schedules}));
     });
 });

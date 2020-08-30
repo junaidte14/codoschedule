@@ -20,8 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    datastore.conn();
-    next();
+    datastore.conn(res, next);
 });
 
 //routes
@@ -31,6 +30,6 @@ app.get('/', (req, res) => {
     res.status(200).send('Welcome to starter API using NodeJs and MongoDB');
 });
 
-app.listen(process.env.PORT || 3000, function(){
-    console.log('Server is running at port : ' + 3000);
+app.listen(process.env.PORT || 8000, function(){
+    console.log('Server is running at port : ' + 8000);
 });
