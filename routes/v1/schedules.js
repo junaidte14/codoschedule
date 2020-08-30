@@ -17,6 +17,7 @@ router.post('/', authFunc.checkAdminAuthenticated, (req, res) => {
         }); 
         newSchedule.save(function(err) {
             if (err) return res.status(500).json({success: false, message: err.message});
+            mongoose.connection.close();
             res.status(200).send(JSON.stringify({message: "Schedule is successfuly added!"}));
         });
     });
@@ -32,9 +33,10 @@ router.get('/', (req, res) => {
 });
 
 //read single Schedule by ID
-router.get('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
+router.get('/:id', (req, res) => {
     Schedule.findById(req.params.id).exec(function(err, Schedule) {
         if (err) return res.status(500).json({success: false, message: err.message});
+        mongoose.connection.close();
         res.status(200).send(JSON.stringify({success: true, data: Schedule}));
     });
 });
@@ -61,6 +63,7 @@ router.post('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
          
             Schedule.save(function(err) {
                 if (err) return res.status(500).json({success: false, message: err.message});
+                mongoose.connection.close();
                 res.status(200).send(JSON.stringify({success: true, message: "Schedule is successfully updated"}));
             });
         });
@@ -71,6 +74,7 @@ router.post('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
 router.delete('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
     Schedule.deleteOne({_id: req.params.id}).exec(function(err, Schedule) {
         if (err) return res.status(500).json({success: false, message: err.message});
+        mongoose.connection.close();
         res.status(200).send(JSON.stringify({success: true, message: "Schedule is successfully deleted"}));
     });
 });
