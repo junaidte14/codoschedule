@@ -5,9 +5,6 @@ const cors = require('cors');
 const routes = require('./routes/v1');
 const datastore = require('./config/datastore');
 
-import path from 'path';
-app.use(express.static(path.join(__dirname, '/build')));
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -31,10 +28,6 @@ app.use('/v1', routes);
 
 app.get('/', (req, res) => {
     res.status(200).send('Welcome to starter API using NodeJs and MongoDB');
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/build/index.html'));
 });
 
 app.listen(process.env.PORT || 8000, function(){
