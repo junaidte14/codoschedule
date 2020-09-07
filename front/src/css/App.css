@@ -1,0 +1,95 @@
+.app-body{
+  min-height: 500px;
+  margin-top: 50px;
+}
+
+.add-task .card-body {
+  display: none;
+}
+
+.task-addheading {
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #a9aeb2;
+}
+
+.countdown-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  color: #111;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 30px;
+  margin: 10px;
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.countdown-item span {
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.countdown-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.loader {
+  position: absolute;
+  top: calc(50% + 4em);
+  left: calc(50% - 4em);
+  width: 6em;
+  height: 6em;
+  border: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-left: 1.1em solid #000000;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear;
+  transition: opacity 0.3s;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 767px){
+  .app-body{
+    min-height: 500px;
+    margin-top: 0px;
+  }
+
+  .countdown-item {
+    font-size: 20px;
+    line-height: 24px;
+    margin: 1px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .countdown-item span {
+    font-weight: 400;
+  }
+}
