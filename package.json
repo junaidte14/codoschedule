@@ -1,5 +1,5 @@
 {
-  "name": "codoschedules-api",
+  "name": "codoschedule",
   "version": "1.0.0",
   "description": "An API for codoschedules react app using NodeJS and MongoDB",
   "main": "app.js",
