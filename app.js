@@ -5,8 +5,8 @@ const cors = require('cors');
 const routes = require('./routes/v1');
 const datastore = require('./config/datastore');
 
-import path from 'path';
-app.use(express.static(path.join(__dirname, '/build')));
+const path = require('path');
+app.use(express.static(path.join(__dirname, '/public/build')));
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/build/index.html'));
+    res.sendFile(path.join(__dirname+'/public/build/index.html'));
 });
 
 app.listen(process.env.PORT || 8000, function(){
