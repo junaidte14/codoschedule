@@ -92,4 +92,8 @@
   .countdown-item span {
     font-weight: 400;
   }
+
+  .task-item .card-title{
+    margin-top: .75rem;
+  }
 }
