@@ -6,7 +6,7 @@ const routes = require('./routes/v1');
 const datastore = require('./config/datastore');
 
 const path = require('path');
-app.use(express.static(path.join(__dirname, '/public/build')));
+app.use(express.static(path.join(__dirname, '/front/build')));
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/public/build/index.html'));
+    res.sendFile(path.join(__dirname+'/front/build/index.html'));
 });
 
 app.listen(process.env.PORT || 8000, function(){
