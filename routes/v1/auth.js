@@ -5,10 +5,10 @@ const authFuncs = require('../../functions/auth');
 const env = require('../../config/env');
 
 auth.post('/login', (req, res) => {
-    if(req.body.email == env.configVars.adminEmail && req.body.password == env.configVars.adminPassword){
+    if (req.body.email == env.configVars.adminEmail && req.body.password == env.configVars.adminPassword) {
         let user = req.body;
         authFuncs.sendInfoAndToken(user, res);
-    }else{
+    } else {
         authFuncs.sendAuthError(res);
     }
 });

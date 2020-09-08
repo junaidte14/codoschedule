@@ -5,8 +5,8 @@ const dbURL = env.configVars.dbURL;
 const conn = async (res, next) => {
   try {
     await mongoose.connect(dbURL, {
-      useNewUrlParser: true, 
-      useUnifiedTopology: true, 
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       useCreateIndex: true
     });
     next();
@@ -15,4 +15,6 @@ const conn = async (res, next) => {
   }
 }
 
-module.exports = {conn};
+module.exports = {
+  conn
+};

@@ -10,12 +10,14 @@ app.use(express.static(path.join(__dirname, '/front/build')));
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    if(req.method === 'OPTIONS'){
+    if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
         return res.status(200).json({});
     }
@@ -34,9 +36,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/front/build/index.html'));
+    res.sendFile(path.join(__dirname + '/front/build/index.html'));
 });
 
-app.listen(process.env.PORT || 8000, function(){
+app.listen(process.env.PORT || 8000, function () {
     console.log('Server is running at port : ' + 8000);
 });

@@ -27,7 +27,9 @@ const scheduleSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-},{strict: true});
+}, {
+    strict: true
+});
 
 const Schedule = mongoose.model('Schedule', scheduleSchema);
 
