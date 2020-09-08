@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 class Header extends Component{
+    constructor(){
+        super();
+        this.state = {
+            token: window.localStorage.getItem('codoschedules-token')
+        }
+    }
+
     render(){
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,9 +26,20 @@ class Header extends Component{
                         </li>
                     </ul>
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <Link to="/login" className="nav-link">Login</Link>
-                        </li>
+                        {
+                            (!this.state.token) && (
+                                <li className="nav-item active">
+                                    <Link to="/login" className="nav-link">Login</Link>
+                                </li>
+                            )
+                        }
+                        {
+                            (this.state.token) && (
+                                <li className="nav-item active">
+                                    <Link to="/logout" className="nav-link">Logout</Link>
+                                </li>
+                            )
+                        }
                     </ul>
                 </div>
             </nav>

@@ -6,6 +6,7 @@ const secretKey = env.configVars.secretKey;
 function sendInfoAndToken(user, res) {
     const token = jwt.sign(user.email, secretKey);
     res.status(200).json({
+        success: true,
         email: user.email,
         token: token
     });
