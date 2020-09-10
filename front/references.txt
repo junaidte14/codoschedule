@@ -1,0 +1,2 @@
+https://jasonwatmore.com/post/2017/12/07/react-redux-jwt-authentication-tutorial-example
+https://github.com/cornflourblue/react-redux-jwt-authentication-example

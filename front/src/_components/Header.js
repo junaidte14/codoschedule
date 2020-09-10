@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 class Header extends Component{
-    constructor(){
-        super();
-        this.state = {
-            token: window.localStorage.getItem('codoschedules-token')
-        }
-    }
-
     render(){
+        const { user } = this.props;
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <Link to="/" className="navbar-brand">codoschedule</Link>
@@ -27,16 +22,16 @@ class Header extends Component{
                     </ul>
                     <ul className="navbar-nav">
                         {
-                            (!this.state.token) && (
+                            (!user) && (
                                 <li className="nav-item active">
                                     <Link to="/login" className="nav-link">Login</Link>
                                 </li>
                             )
                         }
                         {
-                            (this.state.token) && (
+                            (user) && (
                                 <li className="nav-item active">
-                                    <Link to="/logout" className="nav-link">Logout</Link>
+                                    <Link to="/login" className="nav-link">Logout</Link>
                                 </li>
                             )
                         }
@@ -47,4 +42,15 @@ class Header extends Component{
     }
 }
 
-export default Header;
+//export default Header;
+
+function mapStateToProps(state) {
+    const { authentication } = state;
+    const { user } = authentication;
+    return {
+        user
+    };
+}
+
+const connectedHeader = connect(mapStateToProps)(Header);
+export { connectedHeader as Header };

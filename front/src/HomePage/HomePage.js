@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { findIndex } from 'lodash';
 
-import ListTasks from './ListTasks';
-import SearchTasks from './SearchTasks';
+import ListTasks from '../_components/ListTasks';
+import SearchTasks from '../_components/SearchTasks';
+
+import { userActions } from '../_actions';
 
 import vars from '../config/env';
 
-class Main extends Component{
+class HomePage extends Component{
     constructor(){
         super();
         this.state = {
@@ -62,6 +65,7 @@ class Main extends Component{
     }
 
     componentDidMount(){
+        this.props.dispatch(userActions.getAll());
         fetch(vars.apiURL+'schedules', {} 
         ).then(response => response.json())
         .then(result => {
@@ -129,4 +133,14 @@ class Main extends Component{
     }
 }
 
-export default Main;
+function mapStateToProps(state) {
+    const { users, authentication } = state;
+    const { user } = authentication;
+    return {
+        user,
+        users
+    };
+}
+
+const connectedHomePage = connect(mapStateToProps)(HomePage);
+export { connectedHomePage as HomePage };
