@@ -34,19 +34,19 @@ const LoginPage = () =>{
         <div className="card textcenter mt-20 rounded-0">
             <div className="card-body">
                 <h2>Login</h2>
-                <form name="form" onSubmit={handleSubmit}>
-                    <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
+                <form name="loginForm" onSubmit={handleSubmit}>
+                    <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="text" className="form-control" name="email" value={email} onChange={handleChange} />
+                        <input type="text" className={'form-control' + (submitted && !email ? ' is-invalid' : '')} name="email" value={email} onChange={handleChange} />
                         {submitted && !email &&
-                            <div className="help-block">email is required</div>
+                            <div className="invalid-feedback">email is required</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
+                    <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={handleChange} />
+                        <input type="password" className={'form-control' + (submitted && !password ? ' is-invalid' : '')} name="password" value={password} onChange={handleChange} />
                         {submitted && !password &&
-                            <div className="help-block">Password is required</div>
+                            <div className="invalid-feedback">Password is required</div>
                         }
                     </div>
                     <div className="form-group">

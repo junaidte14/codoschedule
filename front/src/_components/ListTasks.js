@@ -42,7 +42,7 @@ const ListTasks = (props) =>{
                                 {
                                     (user) && (
                                         <button className="btn btn-sm btn-danger"
-                                        onClick={() => props.deleteTask(item)}
+                                        onClick={() => props.deleteTask(item._id)}
                                         >
                                             <FaTimes />
                                         </button>

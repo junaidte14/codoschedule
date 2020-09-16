@@ -3,7 +3,11 @@ export function authHeader() {
     let user = JSON.parse(localStorage.getItem('codoschedule-user'));
 
     if (user && user.token) {
-        return { 'Authorization': 'Bearer ' + user.token };
+        return { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + user.token 
+        };
     } else {
         return {};
     }

@@ -136,7 +136,7 @@ router.delete('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
                         message: err.message
                     });
                 } else {
-                    mongoose.connection.close();
+                    //mongoose.connection.close();
                     res.status(200).send(JSON.stringify({
                         success: true,
                         data: schedules

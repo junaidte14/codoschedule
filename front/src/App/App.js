@@ -7,9 +7,12 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../_helpers';
 import { alertActions } from '../store/_actions';
-import components from '../_components';
+import Header from '../pages/common/Header';
+import Footer from '../pages/common/Footer';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
+import AddTasks from '../_components/AddTasks';
+import NotFound from '../_components/NotFound';
 import './App.css';
 
 const App = () => {
@@ -21,7 +24,7 @@ const App = () => {
 
   return (
     <Router history={history}>
-      <components.Header></components.Header>
+      <Header></Header>
       <div className="bg-white app-body">
         <div className="container">
           {alert.message &&
@@ -29,14 +32,13 @@ const App = () => {
           }
           <Switch>
             <Route path="/" component={HomePage} exact/>
-            {/* <Route path="/add" component={AddTasks}/>
-            <Route path="/tasks/:name" component={SingleTask}/> */}
+            <Route path="/add" component={AddTasks}/>
             <Route path="/login" component={LoginPage}/>
-            {/* <Route component={NotFound}/> */}
+            <Route component={NotFound}/>
           </Switch>
         </div>
       </div>
-      <components.Footer></components.Footer>
+      <Footer></Footer>
     </Router>
   );
 }

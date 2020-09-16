@@ -2,7 +2,9 @@ import vars from '../config/env';
 import { authHeader } from '../_helpers';
 
 export const scheduleService = {
-    getAll
+    getAll,
+    addSchedule,
+    deleteSchedule
 };
 
 function getAll() {
@@ -12,6 +14,25 @@ function getAll() {
     };
 
     return fetch(`${vars.apiURL}schedules`, requestOptions).then(handleResponse);
+}
+
+function addSchedule(schedule) {
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(schedule),
+        headers: authHeader()
+    };
+
+    return fetch(`${vars.apiURL}schedules`, requestOptions).then(handleResponse);
+}
+
+function deleteSchedule(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(`${vars.apiURL}schedules/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

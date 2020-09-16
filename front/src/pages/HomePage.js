@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { findIndex } from 'lodash';
 
 import ListTasks from '../_components/ListTasks';
 import SearchTasks from '../_components/SearchTasks';
-
-import vars from '../config/env';
 
 import { scheduleActions } from '../store/_actions';
 
@@ -24,22 +21,9 @@ const HomePage = () => {
     const orderDir = schedulesState.orderDir;
     const queryText = schedulesState.queryText;
 
-    const deleteTask = (task) => {
-        fetch(vars.apiURL+'schedules/'+task._id, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.anVuYWlkdGUxNEBnbWFpbC5jb20.tnZyB_epsHmzh5q5MWWZa9ktw5uViDwxwIIVlQEeLVA'
-            }
-        } 
-        ).then(response => response.json())
-        .then(result => {
-            /* const tasks = result.data.map(item => {
-                return item;
-            }); */
-        }).catch(error => {
-            console.log(error);
-        });
+    const deleteTask = (id) => {
+        dispatch(scheduleActions.deleteSchedule(id));
+        dispatch(scheduleActions.getAll());
     }
 
     const changeOrder = (order, dir) =>{
@@ -51,15 +35,9 @@ const HomePage = () => {
         dispatch(scheduleActions.updateQueryText(text));
     }
 
-    const updateInfo = (name, value, id) =>{
-        let tempTasks = myTasks;
-        let taskIndex = findIndex(tempTasks, {id: id});
-        tempTasks[taskIndex][name] = value;
-    }
-
-    let filteredTasks = [];
     if(!loaderStatus){
         let order;
+        let filteredTasks = [];
         filteredTasks = myTasks;
         if(orderDir === 'asc'){
             order = 1;
@@ -92,7 +70,6 @@ const HomePage = () => {
                         <ListTasks 
                             tasks={filteredTasks} 
                             deleteTask={deleteTask}
-                            updateInfo={updateInfo}
                         />
                     </div>
                 </div>

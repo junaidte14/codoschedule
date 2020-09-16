@@ -18,25 +18,43 @@ export function schedules(state = initialState, action) {
         loading: false,
         items: action.schedules.data
       }
-    case actionTypes.SCHEDULES.UPDATE_ORDER_BY:
-      return {
-        ...state,
-        orderBy: action.orderBy
-      }
-    case actionTypes.SCHEDULES.UPDATE_ORDER_DIR:
-      return {
-        ...state,
-        orderDir: action.orderDir
-      }
-    case actionTypes.SCHEDULES.UPDATE_QUERY_TEXT:
-      return {
-        ...state,
-        queryText: action.queryText
-      }
     case actionTypes.SCHEDULES.GETALL_FAILURE:
       return {
         ...state,
         error: action.error
+      }
+
+    case actionTypes.SCHEDULES.ADD_REQUEST:
+      return state;
+    case actionTypes.SCHEDULES.ADD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      }
+    case actionTypes.SCHEDULES.ADD_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      }
+
+    case actionTypes.SCHEDULES.DELETE_REQUEST:
+      return state;
+    case actionTypes.SCHEDULES.DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        items: action.schedules.data
+      }
+    case actionTypes.SCHEDULES.DELETE_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      }
+    
+    case actionTypes.SCHEDULES.UPDATE_QUERY_TEXT:
+      return {
+        ...state,
+        queryText: action.queryText
       }
     default:
       return state
