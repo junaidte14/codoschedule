@@ -4,7 +4,8 @@ import { scheduleService } from '../../_services';
 export const scheduleActions = {
     getAll,
     updateOrderBy,
-    updateOrderDir
+    updateOrderDir,
+    updateQueryText
 };
 
 function getAll() {
@@ -24,9 +25,13 @@ function getAll() {
 }
 
 function updateOrderBy(orderBy) {
-    return { type: scheduleConstants.UPDATE_ORDERBY, orderBy};
+    return { type: scheduleConstants.UPDATE_ORDER_BY, orderBy};
 }
 
 function updateOrderDir(orderDir) {
-    return { type: scheduleConstants.UPDATE_ORDERDIR, orderDir};
+    return { type: scheduleConstants.UPDATE_ORDER_DIR, orderDir};
+}
+
+function updateQueryText(queryText) {
+    return { type: scheduleConstants.UPDATE_QUERY_TEXT, queryText};
 }

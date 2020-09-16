@@ -48,7 +48,7 @@ const HomePage = () => {
     }
 
     const searchTasks = (text) =>{
-        //setQueryText(text);
+        dispatch(scheduleActions.updateQueryText(text));
     }
 
     const updateInfo = (name, value, id) =>{

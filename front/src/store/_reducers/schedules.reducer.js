@@ -18,15 +18,20 @@ export function schedules(state = initialState, action) {
         loading: false,
         items: action.schedules.data
       }
-    case scheduleConstants.UPDATE_ORDERBY:
+    case scheduleConstants.UPDATE_ORDER_BY:
       return {
         ...state,
         orderBy: action.orderBy
       }
-    case scheduleConstants.UPDATE_ORDERDIR:
+    case scheduleConstants.UPDATE_ORDER_DIR:
       return {
         ...state,
         orderDir: action.orderDir
+      }
+    case scheduleConstants.UPDATE_QUERY_TEXT:
+      return {
+        ...state,
+        queryText: action.queryText
       }
     case scheduleConstants.GETALL_FAILURE:
       return {
