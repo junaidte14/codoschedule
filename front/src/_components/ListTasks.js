@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {FaTimes} from 'react-icons/fa';
 import CountDown from './CountDown.js';
 
 const ListTasks = (props) =>{
+    const user = useSelector(state => {
+        return state.auth.user;
+    });
     return (
         <div className="task-list item-list mb-3">
             {
@@ -35,11 +39,15 @@ const ListTasks = (props) =>{
                                         {item.ownerName}
                                     </span>
                                 </p>
-                                <button className="btn btn-sm btn-danger"
-                                onClick={() => this.props.deleteTask(item)}
-                                >
-                                    <FaTimes />
-                                </button>
+                                {
+                                    (user) && (
+                                        <button className="btn btn-sm btn-danger"
+                                        onClick={() => props.deleteTask(item)}
+                                        >
+                                            <FaTimes />
+                                        </button>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

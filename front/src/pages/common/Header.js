@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { authActions } from '../store/_actions';
+import { authActions } from '../../store/_actions';
 
 const Header = () => {
     const dispatch = useDispatch();
