@@ -1,4 +1,4 @@
-import { scheduleConstants } from '../../_constants';
+import { actionTypes } from '../action.types';
 
 const initialState = {
   loading: true,
@@ -10,30 +10,30 @@ const initialState = {
 };
 export function schedules(state = initialState, action) {
   switch (action.type) {
-    case scheduleConstants.GETALL_REQUEST:
+    case actionTypes.SCHEDULES.GETALL_REQUEST:
       return state;
-    case scheduleConstants.GETALL_SUCCESS:
+    case actionTypes.SCHEDULES.GETALL_SUCCESS:
       return {
         ...state,
         loading: false,
         items: action.schedules.data
       }
-    case scheduleConstants.UPDATE_ORDER_BY:
+    case actionTypes.SCHEDULES.UPDATE_ORDER_BY:
       return {
         ...state,
         orderBy: action.orderBy
       }
-    case scheduleConstants.UPDATE_ORDER_DIR:
+    case actionTypes.SCHEDULES.UPDATE_ORDER_DIR:
       return {
         ...state,
         orderDir: action.orderDir
       }
-    case scheduleConstants.UPDATE_QUERY_TEXT:
+    case actionTypes.SCHEDULES.UPDATE_QUERY_TEXT:
       return {
         ...state,
         queryText: action.queryText
       }
-    case scheduleConstants.GETALL_FAILURE:
+    case actionTypes.SCHEDULES.GETALL_FAILURE:
       return {
         ...state,
         error: action.error

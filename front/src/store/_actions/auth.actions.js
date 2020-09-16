@@ -1,7 +1,7 @@
-import { authConstants } from '../../_constants';
+import { actionTypes } from '../action.types';
 import { authService } from '../../_services';
-import { alertActions } from '.';
 import { history } from '../../_helpers';
+import { alertActions } from './';
 
 export const authActions = {
     login,
@@ -11,7 +11,7 @@ export const authActions = {
 function login(email, password) {
     return dispatch => {
         dispatch({ 
-            type: authConstants.LOGIN_REQUEST, 
+            type: actionTypes.AUTH.LOGIN_REQUEST, 
             email 
         });
 
@@ -19,14 +19,14 @@ function login(email, password) {
         .then(
             user => { 
                 dispatch({ 
-                    type: authConstants.LOGIN_SUCCESS, 
+                    type: actionTypes.AUTH.LOGIN_SUCCESS, 
                     user 
                 });
                 history.push('/');
             },
             error => {
                 dispatch({ 
-                    type: authConstants.LOGIN_FAILURE, 
+                    type: actionTypes.AUTH.LOGIN_FAILURE, 
                     error 
                 });
                 dispatch(alertActions.error(error));
@@ -37,5 +37,5 @@ function login(email, password) {
 
 function logout() {
     authService.logout();
-    return { type: authConstants.LOGOUT };
+    return { type: actionTypes.AUTH.LOGOUT };
 }

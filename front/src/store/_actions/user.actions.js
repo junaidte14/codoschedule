@@ -1,4 +1,4 @@
-import { userConstants } from '../../_constants';
+import { actionTypes } from '../action.types';
 import { userService } from '../../_services';
 
 export const userActions = {
@@ -8,17 +8,17 @@ export const userActions = {
 function getAll() {
     return dispatch => {
         dispatch({ 
-            type: userConstants.GETALL_REQUEST 
+            type: actionTypes.USERS.GETALL_REQUEST 
         });
 
         userService.getAll()
             .then(
                 users => dispatch({ 
-                    type: userConstants.GETALL_SUCCESS, 
+                    type: actionTypes.USERS.GETALL_SUCCESS, 
                     users 
                 }),
                 error => dispatch({ 
-                    type: userConstants.GETALL_FAILURE, 
+                    type: actionTypes.USERS.GETALL_FAILURE, 
                     error 
                 })
             );

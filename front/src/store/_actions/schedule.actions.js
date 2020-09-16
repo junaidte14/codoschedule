@@ -1,4 +1,4 @@
-import { scheduleConstants } from '../../_constants';
+import { actionTypes } from '../action.types';
 import { scheduleService } from '../../_services';
 
 export const scheduleActions = {
@@ -10,28 +10,32 @@ export const scheduleActions = {
 
 function getAll() {
     return dispatch => {
-        dispatch(request());
+        dispatch({ 
+            type: actionTypes.SCHEDULES.GETALL_REQUEST 
+        });
 
         scheduleService.getAll()
         .then(
-            schedules => dispatch(success(schedules)),
-            error => dispatch(failure(error))
+            schedules => dispatch({ 
+                type: actionTypes.SCHEDULES.GETALL_SUCCESS, 
+                schedules 
+            }),
+            error => dispatch({ 
+                type: actionTypes.SCHEDULES.GETALL_FAILURE, 
+                error 
+            })
         );
     };
-
-    function request() { return { type: scheduleConstants.GETALL_REQUEST } }
-    function success(schedules) { return { type: scheduleConstants.GETALL_SUCCESS, schedules } }
-    function failure(error) { return { type: scheduleConstants.GETALL_FAILURE, error } }
 }
 
 function updateOrderBy(orderBy) {
-    return { type: scheduleConstants.UPDATE_ORDER_BY, orderBy};
+    return { type: actionTypes.SCHEDULES.UPDATE_ORDER_BY, orderBy};
 }
 
 function updateOrderDir(orderDir) {
-    return { type: scheduleConstants.UPDATE_ORDER_DIR, orderDir};
+    return { type: actionTypes.SCHEDULES.UPDATE_ORDER_DIR, orderDir};
 }
 
 function updateQueryText(queryText) {
-    return { type: scheduleConstants.UPDATE_QUERY_TEXT, queryText};
+    return { type: actionTypes.SCHEDULES.UPDATE_QUERY_TEXT, queryText};
 }

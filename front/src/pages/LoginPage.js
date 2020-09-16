@@ -4,14 +4,12 @@ import { authActions } from '../store/_actions';
 
 const LoginPage = () =>{
     const dispatch = useDispatch();
-    dispatch(authActions.logout());
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (e) =>{
-        console.log(e.target.name);
         const { name, value } = e.target;
         if(name === 'email'){
             setEmail(value);

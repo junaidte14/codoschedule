@@ -17,7 +17,6 @@ function login(email, password) {
     .then(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('codoschedule-user', JSON.stringify({token: user.token}));
-
         return user;
     });
 }
@@ -34,7 +33,6 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                window.location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;

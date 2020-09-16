@@ -1,4 +1,4 @@
-import { alertConstants } from '../../_constants';
+import { actionTypes } from '../action.types';
 
 export const alertActions = {
     success,
@@ -7,13 +7,13 @@ export const alertActions = {
 };
 
 function success(message) {
-    return { type: alertConstants.SUCCESS, message };
+    return { type: actionTypes.ALERT.SUCCESS, message };
 }
 
 function error(message) {
-    return { type: alertConstants.ERROR, message };
+    return { type: actionTypes.ALERT.ERROR, message };
 }
 
 function clear() {
-    return { type: alertConstants.CLEAR };
+    return { type: actionTypes.ALERT.CLEAR };
 }
