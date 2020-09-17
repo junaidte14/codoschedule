@@ -32,7 +32,7 @@ const App = () => {
           }
           <Switch>
             <Route path="/" component={HomePage} exact/>
-            <Route path="/add" component={AddTasks}/>
+            <Route path="/add-task" component={AddTasks}/>
             <Route path="/login" component={LoginPage}/>
             <Route component={NotFound}/>
           </Switch>

@@ -1,15 +1,23 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {FaTimes} from 'react-icons/fa';
+import {FaTrash, FaSpinner, FaEdit} from 'react-icons/fa';
 import CountDown from './CountDown.js';
 
 const ListTasks = (props) =>{
-    const user = useSelector(state => {
-        return state.auth.user;
+    const state = useSelector(state => {
+        return state;
     });
+    const user = state.auth.user;
+    const loading = state.schedules.actionLoader;
     return (
         <div className="task-list item-list mb-3">
-            {
+            {loading &&
+                <div className="text-center" style={{fontSize: '70px'}}>
+                    <FaSpinner className="icon-spin"/>
+                </div>
+            }
+            {!loading &&
                 props.tasks.map(item => (
                     <div className="card task-item mb-3 rounded-0" key={item._id}>
                         <div className="card-body">
@@ -41,11 +49,14 @@ const ListTasks = (props) =>{
                                 </p>
                                 {
                                     (user) && (
-                                        <button className="btn btn-sm btn-danger"
-                                        onClick={() => props.deleteTask(item._id)}
-                                        >
-                                            <FaTimes />
+                                        <>
+                                        <button className="btn btn-sm text-danger" onClick={() => {props.deleteTask(item._id)}}>
+                                            <FaTrash />
                                         </button>
+                                        <Link className="btn btn-sm text-primary ml-2" to={"/update-task/"+item._id}>
+                                            <FaEdit />
+                                        </Link>
+                                        </>
                                     )
                                 }
                             </div>

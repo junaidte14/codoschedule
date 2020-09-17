@@ -29,7 +29,7 @@ export function schedules(state = initialState, action) {
       return {
         ...state,
         actionLoader: true
-      };
+      }
     case actionTypes.SCHEDULES.ADD_SUCCESS:
       return {
         ...state,
@@ -43,17 +43,21 @@ export function schedules(state = initialState, action) {
       }
 
     case actionTypes.SCHEDULES.DELETE_REQUEST:
-      return state;
+      return {
+        ...state,
+        actionLoader: true
+      }
     case actionTypes.SCHEDULES.DELETE_SUCCESS:
       return {
         ...state,
-        loading: false,
-        items: state.items.filter(e => e._id !== action.schedules.data)
+        items: state.items.filter(e => e._id !== action.schedules.data),
+        actionLoader: false
       }
     case actionTypes.SCHEDULES.DELETE_FAILURE:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        actionLoader: false
       }
     
     case actionTypes.SCHEDULES.UPDATE_QUERY_TEXT:

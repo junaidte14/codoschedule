@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import {FaSpinner} from 'react-icons/fa';
 
 import ListTasks from '../_components/ListTasks';
 import SearchTasks from '../_components/SearchTasks';
@@ -78,8 +79,8 @@ const HomePage = () => {
         return (
             <main className="page bg-white">
                 <div className="row">
-                    <div className="col-md-12 bg-white">
-                        <div className="loader"></div>
+                    <div className="col-md-12 bg-white text-center" style={{fontSize: '70px'}}>
+                        <FaSpinner className="icon-spin"/>
                     </div>
                 </div>
             </main>

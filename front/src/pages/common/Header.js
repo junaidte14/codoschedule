@@ -23,7 +23,7 @@ const Header = () => {
                     {
                         (user) && (
                             <li className="nav-item active">
-                                <Link to="/add" className="nav-link">Add</Link>
+                                <Link to="/add-task" className="nav-link">Add</Link>
                             </li>
                         )
                     }
