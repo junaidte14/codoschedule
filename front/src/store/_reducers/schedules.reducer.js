@@ -2,6 +2,7 @@ import { actionTypes } from '../action.types';
 
 const initialState = {
   loading: true,
+  actionLoader: false,
   items: [],
   orderBy: 'date',
   orderDir: 'asc',
@@ -25,16 +26,20 @@ export function schedules(state = initialState, action) {
       }
 
     case actionTypes.SCHEDULES.ADD_REQUEST:
-      return state;
+      return {
+        ...state,
+        actionLoader: true
+      };
     case actionTypes.SCHEDULES.ADD_SUCCESS:
       return {
         ...state,
-        loading: false,
+        actionLoader: false
       }
     case actionTypes.SCHEDULES.ADD_FAILURE:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        actionLoader: false
       }
 
     case actionTypes.SCHEDULES.DELETE_REQUEST:

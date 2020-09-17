@@ -11,7 +11,7 @@ import Header from '../pages/common/Header';
 import Footer from '../pages/common/Footer';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
-import AddTasks from '../_components/AddTasks';
+import AddTasks from '../_components/AddTask';
 import NotFound from '../_components/NotFound';
 import './App.css';
 
