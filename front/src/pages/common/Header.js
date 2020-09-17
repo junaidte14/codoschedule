@@ -17,18 +17,22 @@ const Header = () => {
         
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li className="nav-item active">
+                    {/* <li className="nav-item active">
                         <Link to="/" className="nav-link">Home <span className="sr-only">(current)</span></Link>
-                    </li>
-                    <li className="nav-item active">
-                        <Link to="/add" className="nav-link">Add</Link>
-                    </li>
+                    </li> */}
+                    {
+                        (user) && (
+                            <li className="nav-item active">
+                                <Link to="/add" className="nav-link">Add</Link>
+                            </li>
+                        )
+                    }
                 </ul>
                 <ul className="navbar-nav">
                     {
                         (!user) && (
                             <li className="nav-item active">
-                                <Link to="/login" className="nav-link">Login</Link>
+                                <span className="nav-link">A react app to manage tasks, events and schedules.</span>
                             </li>
                         )
                     }
