@@ -23,7 +23,6 @@ const HomePage = () => {
 
     const deleteTask = (id) => {
         dispatch(scheduleActions.deleteSchedule(id));
-        dispatch(scheduleActions.getAll());
     }
 
     const changeOrder = (order, dir) =>{

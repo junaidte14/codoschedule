@@ -43,7 +43,7 @@ export function schedules(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        items: action.schedules.data
+        items: state.items.filter(e => e._id !== action.schedules.data)
       }
     case actionTypes.SCHEDULES.DELETE_FAILURE:
       return {

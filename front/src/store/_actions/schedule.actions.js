@@ -65,9 +65,10 @@ function deleteSchedule(id) {
 
         scheduleService.deleteSchedule(id)
         .then(
-            res => {
+            schedules => {
                 dispatch({ 
-                    type: actionTypes.SCHEDULES.DELETE_SUCCESS
+                    type: actionTypes.SCHEDULES.DELETE_SUCCESS,
+                    schedules
                 });
                 dispatch(alertActions.success('Schedule is successfully deleted!'));
             },
