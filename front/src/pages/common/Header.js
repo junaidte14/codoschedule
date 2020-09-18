@@ -23,7 +23,7 @@ const Header = () => {
                     {
                         (user) && (
                             <li className="nav-item active">
-                                <Link to="/add-task" className="nav-link">Add</Link>
+                                <Link to="/add-task" className="nav-link">Add Task</Link>
                             </li>
                         )
                     }
@@ -32,7 +32,7 @@ const Header = () => {
                     {
                         (!user) && (
                             <li className="nav-item active">
-                                <span className="nav-link">A react app to manage tasks, events and schedules.</span>
+                                <Link to="/login" className="nav-link">Login</Link>
                             </li>
                         )
                     }

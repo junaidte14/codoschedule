@@ -65,6 +65,8 @@ const AddTasks = () =>{
         return state.schedules.actionLoader;
     });
 
+    
+
     return (
         <div className="card textcenter mt-20 rounded-0">
             <div className="card-body">

@@ -12,17 +12,39 @@ const initialState = {
 export function schedules(state = initialState, action) {
   switch (action.type) {
     case actionTypes.SCHEDULES.GETALL_REQUEST:
-      return state;
+      return {
+        ...state,
+        loading: true
+      }
     case actionTypes.SCHEDULES.GETALL_SUCCESS:
       return {
         ...state,
-        loading: false,
-        items: action.schedules.data
+        items: action.schedules.data,
+        loading: false
       }
     case actionTypes.SCHEDULES.GETALL_FAILURE:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        loading: false,
+      }
+
+    case actionTypes.SCHEDULES.GETBYID_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case actionTypes.SCHEDULES.GETBYID_SUCCESS:
+      return {
+        ...state,
+        item: action.schedule.data,
+        loading: false
+      }
+    case actionTypes.SCHEDULES.GETBYID_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
       }
 
     case actionTypes.SCHEDULES.ADD_REQUEST:
@@ -36,6 +58,32 @@ export function schedules(state = initialState, action) {
         actionLoader: false
       }
     case actionTypes.SCHEDULES.ADD_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        actionLoader: false
+      }
+
+    case actionTypes.SCHEDULES.UPDATE_REQUEST:
+      return {
+        ...state,
+        actionLoader: true
+      }
+    case actionTypes.SCHEDULES.UPDATE_SUCCESS:
+      {
+        const newItems = state.items.map((schedule)=>{
+          if(schedule._id === action.id) {
+            return action.schedule
+          } else return schedule;
+        });
+        return {
+          ...state,
+          items: newItems,
+          item: action.schedule,
+          actionLoader: false
+        }
+      }
+    case actionTypes.SCHEDULES.UPDATE_FAILURE:
       return {
         ...state,
         error: action.error,

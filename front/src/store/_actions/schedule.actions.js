@@ -4,7 +4,9 @@ import { scheduleService } from '../../_services';
 
 export const scheduleActions = {
     getAll,
+    getItemById,
     addSchedule,
+    updateSchedule,
     deleteSchedule,
     updateOrderBy,
     updateOrderDir,
@@ -31,6 +33,34 @@ function getAll() {
     };
 }
 
+function getItemById(id) {
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            dispatch({ 
+                type: actionTypes.SCHEDULES.GETBYID_REQUEST
+            });
+    
+            scheduleService.getItemById(id)
+            .then(
+                schedule => {
+                    dispatch({ 
+                        type: actionTypes.SCHEDULES.GETBYID_SUCCESS, 
+                        schedule 
+                    });
+                    resolve(schedule);
+                },
+                error => {
+                    dispatch({ 
+                        type: actionTypes.SCHEDULES.GETBYID_FAILURE, 
+                        error 
+                    });
+                    reject();
+                }
+            );
+        });
+    };
+}
+
 function addSchedule(schedule) {
     return dispatch => {
         dispatch({ 
@@ -49,6 +79,34 @@ function addSchedule(schedule) {
             error => {
                 dispatch({ 
                     type: actionTypes.SCHEDULES.ADD_FAILURE, 
+                    error 
+                });
+                dispatch(alertActions.error(error));
+            }
+        );
+    };
+}
+
+function updateSchedule(id, schedule) {
+    return dispatch => {
+        dispatch({ 
+            type: actionTypes.SCHEDULES.UPDATE_REQUEST 
+        });
+
+        scheduleService.updateSchedule(id, schedule)
+        .then(
+            res => {
+                dispatch({ 
+                    type: actionTypes.SCHEDULES.UPDATE_SUCCESS,
+                    id,
+                    schedule
+                });
+                dispatch(alertActions.success('Schedule is successfully updated!'));
+                
+            },
+            error => {
+                dispatch({ 
+                    type: actionTypes.SCHEDULES.UPDATE_FAILURE, 
                     error 
                 });
                 dispatch(alertActions.error(error));

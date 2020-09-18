@@ -35,6 +35,7 @@ const LoginPage = () =>{
         <div className="card textcenter mt-20 rounded-0">
             <div className="card-body">
                 <h2>Login</h2>
+                <p>Only admin can login to the app!</p>
                 <form name="loginForm" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>

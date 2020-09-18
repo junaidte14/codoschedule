@@ -98,19 +98,9 @@ router.post('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
                         message: err.message
                     });
                 } else {
-                    Schedule.find({}).exec(function (err, schedules) {
-                        if (err) {
-                            return res.status(500).json({
-                                success: false,
-                                message: err.message
-                            });
-                        } else {
-                            mongoose.connection.close();
-                            res.status(200).send(JSON.stringify({
-                                success: true,
-                                data: schedules
-                            }));
-                        }
+                    return res.status(200).json({
+                        success: true,
+                        message: "Schedule is successfully updated"
                     });
                 }
             });

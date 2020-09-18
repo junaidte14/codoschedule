@@ -3,7 +3,9 @@ import { authHeader } from '../_helpers';
 
 export const scheduleService = {
     getAll,
+    getItemById,
     addSchedule,
+    updateSchedule,
     deleteSchedule
 };
 
@@ -16,6 +18,15 @@ function getAll() {
     return fetch(`${vars.apiURL}schedules`, requestOptions).then(handleResponse);
 }
 
+function getItemById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${vars.apiURL}schedules/${id}`, requestOptions).then(handleResponse);
+}
+
 function addSchedule(schedule) {
     const requestOptions = {
         method: 'POST',
@@ -24,6 +35,16 @@ function addSchedule(schedule) {
     };
 
     return fetch(`${vars.apiURL}schedules`, requestOptions).then(handleResponse);
+}
+
+function updateSchedule(id, schedule) {
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(schedule),
+        headers: authHeader()
+    };
+
+    return fetch(`${vars.apiURL}schedules/${id}`, requestOptions).then(handleResponse);
 }
 
 function deleteSchedule(id) {
