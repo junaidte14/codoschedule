@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../store/_actions';
-import {FaSpinner} from 'react-icons/fa';
+import Spinner from '../_components/Spinner';
 
 const LoginPage = () =>{
     const dispatch = useDispatch();
@@ -52,9 +52,9 @@ const LoginPage = () =>{
                         }
                     </div>
                     <div className="form-group">
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary mr-2">Login</button>
                         {loggingIn &&
-                            <FaSpinner className="icon-spin ml-2"/>
+                            <Spinner showBlock={false}/>
                         }
                     </div>
                 </form>

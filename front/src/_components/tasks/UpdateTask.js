@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { scheduleActions, alertActions } from '../../store/_actions';
-import {FaSpinner} from 'react-icons/fa';
+import Spinner from '../Spinner';
 
 const UpdateTask = (props) =>{
 
@@ -76,13 +76,7 @@ const UpdateTask = (props) =>{
 
     if(loading){
         return (
-            <main className="page bg-white">
-                <div className="row">
-                    <div className="col-md-12 bg-white text-center" style={{fontSize: '70px'}}>
-                        <FaSpinner className="icon-spin"/>
-                    </div>
-                </div>
-            </main>
+            <Spinner showBlock={true}/>
         );
     }else{
         
@@ -137,9 +131,9 @@ const UpdateTask = (props) =>{
         
                         <div className="form-group form-row mb-0">
                             <div className="col-md-12">
-                                <button type="submit" className="btn btn-primary ml-auto rounded-0">Update Task</button>
+                                <button type="submit" className="btn btn-primary ml-auto rounded-0 mr-2">Update Task</button>
                                 {actionLoader &&
-                                    <FaSpinner className="icon-spin ml-2"/>
+                                    <Spinner showBlock={false}/>
                                 }
                             </div>
                         </div>
