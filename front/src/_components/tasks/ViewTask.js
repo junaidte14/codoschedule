@@ -4,6 +4,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { scheduleActions } from '../../store/_actions';
 import {FaTrash, FaSpinner, FaEdit} from 'react-icons/fa';
 import CountDown from './../CountDown.js';
+import { history } from '../../_helpers';
 
 const ViewTask = (props) =>{
 
@@ -18,6 +19,11 @@ const ViewTask = (props) =>{
     const user = state.auth.user;
     const loading = state.schedules.loading;
     const item = state.schedules.item;
+
+    const deleteTask = (id) => {
+        dispatch(scheduleActions.deleteSchedule(id));
+        history.push('/');
+    }
 
     if(loading){
         return (
@@ -63,7 +69,7 @@ const ViewTask = (props) =>{
                         {
                             (user) && (
                                 <>
-                                <button className="btn btn-sm text-danger" onClick={() => {props.deleteTask(item._id)}}>
+                                <button className="btn btn-sm text-danger" onClick={() => {deleteTask(item._id)}}>
                                     <FaTrash />
                                 </button>
                                 <Link className="btn btn-sm text-primary ml-2" to={"/update-task/"+item._id}>
