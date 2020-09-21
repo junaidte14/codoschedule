@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {FaTrash, FaSpinner, FaEdit} from 'react-icons/fa';
-import CountDown from './CountDown.js';
+import {FaTrash, FaSpinner, FaEdit, FaBars} from 'react-icons/fa';
+import CountDown from './../CountDown.js';
 
 const ListTasks = (props) =>{
     const state = useSelector(state => {
@@ -55,6 +55,9 @@ const ListTasks = (props) =>{
                                         </button>
                                         <Link className="btn btn-sm text-primary ml-2" to={"/update-task/"+item._id}>
                                             <FaEdit />
+                                        </Link>
+                                        <Link className="btn btn-sm text-primary ml-2" to={"/tasks/"+item._id}>
+                                            <FaBars />
                                         </Link>
                                         </>
                                     )

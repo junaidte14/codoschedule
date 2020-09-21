@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import {FaSpinner} from 'react-icons/fa';
 
-import ListTasks from '../_components/ListTasks';
-import SearchTasks from '../_components/SearchTasks';
+import ListTasks from '../_components/tasks/ListTasks';
+import SearchTasks from '../_components/tasks/SearchTasks';
 
 import { scheduleActions } from '../store/_actions';
 

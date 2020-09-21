@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { scheduleActions, alertActions } from '../store/_actions';
+import { scheduleActions, alertActions } from '../../store/_actions';
 import {FaSpinner} from 'react-icons/fa';
 
 const UpdateTask = (props) =>{

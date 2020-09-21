@@ -12,8 +12,9 @@ import Header from '../pages/common/Header';
 import Footer from '../pages/common/Footer';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
-import AddTasks from '../_components/AddTask';
-import UpdateTask from '../_components/UpdateTask';
+import ViewTask from '../_components/tasks/ViewTask';
+import AddTasks from '../_components/tasks/AddTask';
+import UpdateTask from '../_components/tasks/UpdateTask';
 import NotFound from '../_components/NotFound';
 import './App.css';
 
@@ -34,6 +35,7 @@ const App = () => {
           }
           <Switch>
             <Route path="/" component={HomePage} exact/>
+            <Route path="/tasks/:id" component={ViewTask}/>
             <PrivateRoute path="/add-task" component={AddTasks} />
             <PrivateRoute path="/update-task/:id" component={UpdateTask}/>
             <Route path="/login" component={LoginPage}/>
