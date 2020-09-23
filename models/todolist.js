@@ -1,4 +1,19 @@
 const mongoose = require('mongoose');
+
+const listSchema = mongoose.Schema({
+    text: {
+        type: String,
+        required: true
+    },
+    completed: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
+}, {
+    strict: true
+});
+
 const todolistSchema = mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,20 +34,6 @@ const todolistSchema = mongoose.Schema({
     dateUpdated: {
         type: Date,
         default: Date.now
-    }
-}, {
-    strict: true
-});
-
-const listSchema = mongoose.Schema({
-    text: {
-        type: String,
-        required: true
-    },
-    completed: {
-        type: Boolean,
-        required: true,
-        default: false
     }
 }, {
     strict: true

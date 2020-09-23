@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.2",
     "countdown": "^2.6.0",
+    "draft-js": "^0.11.7",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",

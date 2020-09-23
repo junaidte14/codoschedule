@@ -3,6 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { scheduleActions } from '../../store/_actions';
 import { history } from '../../_helpers';
 import TaskDetails from './TaskDetails';
+import TodoLists from '../todolists/TodoLists';
 import Spinner from '../Spinner';
 
 const ViewTask = (props) =>{
@@ -32,7 +33,10 @@ const ViewTask = (props) =>{
         );
     }else{
         return (
-            <TaskDetails item={item} deleteTask={deleteTask} user={user} showDetails={false}/>
+            <>
+                <TaskDetails item={item} deleteTask={deleteTask} user={user} showDetails={false}/>
+                <TodoLists itemId={item._id} user={user}/>
+            </>
         );
     }
 }

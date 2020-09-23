@@ -23,6 +23,22 @@ footer {
   border-color: #3f51b5 !important;
 }
 
+.flex-nav-wrapper{
+  display: flex;
+}
+
+.flex-nav-spacer{
+  flex-grow: 1;
+}
+
+.draft-editor {
+  border: 1px blue solid;
+  padding: 1em;
+  margin: 1em;
+  font-family: 'Open Sans';
+  font-size: 90%;
+}
+
 .icon-spin {
   -webkit-animation: icon-spin 2s infinite linear;
           animation: icon-spin 2s infinite linear;

@@ -50,8 +50,8 @@ router.get('/', (req, res) => {
 });
 
 //read all TodoLists by schedule_id
-router.get('/', (req, res) => {
-    TodoList.find({schedule_id: req.query.schedule_id}).exec(function (err, todoLists) {
+router.get('/schedule_id/:id', (req, res) => {
+    TodoList.find({schedule_id: req.params.id}).exec(function (err, todoLists) {
         if (err) {
             return res.status(500).json({
                 success: false,
