@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Schedule = require('../../models/schedule');
+const TodoList = require('../../models/todolist');
 const authFunc = require('../../functions/auth');
 
-//create new Schedule
+//create new TodoList
 router.post('/', authFunc.checkAdminAuthenticated, (req, res) => {
-    Schedule.init().then(() => {
+    TodoList.init().then(() => {
         const id = new mongoose.Types.ObjectId();
-        const newSchedule = new Schedule({
+        const newTodoList = new TodoList({
             _id: id,
+            schedule_id: req.body.schedule_id,
             name: req.body.name,
-            ownerName: req.body.ownerName,
-            date: req.body.date,
-            notes: req.body.notes
+            items: req.body.items
         });
-        newSchedule.save(function (err) {
+        newTodoList.save(function (err) {
             if (err) {
                 return res.status(500).json({
                     success: false,
@@ -25,16 +24,16 @@ router.post('/', authFunc.checkAdminAuthenticated, (req, res) => {
                 mongoose.connection.close();
                 res.status(200).send(JSON.stringify({
                     success: true,
-                    message: "Schedule is successfuly added!"
+                    message: "TodoList is successfuly added!"
                 }));
             }
         });
     });
 });
 
-//read all Schedules
+//read all TodoLists
 router.get('/', (req, res) => {
-    Schedule.find({}).exec(function (err, Schedules) {
+    TodoList.find({}).exec(function (err, todoLists) {
         if (err) {
             return res.status(500).json({
                 success: false,
@@ -44,15 +43,33 @@ router.get('/', (req, res) => {
             mongoose.connection.close();
             res.status(200).send(JSON.stringify({
                 success: true,
-                data: Schedules
+                data: todoLists
             }));
         }
     });
 });
 
-//read single Schedule by ID
+//read all TodoLists by schedule_id
+router.get('/', (req, res) => {
+    TodoList.find({schedule_id: req.query.schedule_id}).exec(function (err, todoLists) {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            });
+        } else {
+            mongoose.connection.close();
+            res.status(200).send(JSON.stringify({
+                success: true,
+                data: todoLists
+            }));
+        }
+    });
+});
+
+//read single TodoList by ID
 router.get('/:id', (req, res) => {
-    Schedule.findById(req.params.id).exec(function (err, Schedule) {
+    TodoList.findById(req.params.id).exec(function (err, todoList) {
         if (err) {
             return res.status(500).json({
                 success: false,
@@ -62,33 +79,24 @@ router.get('/:id', (req, res) => {
             mongoose.connection.close();
             res.status(200).send(JSON.stringify({
                 success: true,
-                data: Schedule
+                data: todoList
             }));
         }
     });
 });
 
-//update single Schedule by ID
+//update single TodoList by ID
 router.post('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
-    Schedule.init().then(() => {
-        Schedule.findById(req.params.id).exec(function (err, response) {
+    TodoList.init().then(() => {
+        TodoList.findById(req.params.id).exec(function (err, response) {
             if (err) return res.status(500).json({
                 success: false,
                 message: err.message
             });
 
-            if (req.body.name) {
-                response.name = req.body.name;
-            }
-            if (req.body.ownerName) {
-                response.ownerName = req.body.ownerName;
-            }
-            if (req.body.date) {
-                response.date = req.body.date;
-            }
-            if (req.body.notes) {
-                response.notes = req.body.notes;
-            }
+            response.schedule_id = req.body.schedule_id;
+            response.name = req.body.name;
+            response.items = req.body.items;
             response.dateUpdated = Date.now();
 
             response.save(function (err) {
@@ -100,7 +108,7 @@ router.post('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
                 } else {
                     return res.status(200).json({
                         success: true,
-                        message: "Schedule is successfully updated"
+                        message: "TodoList is successfully updated"
                     });
                 }
             });
@@ -108,9 +116,9 @@ router.post('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
     });
 });
 
-//delete single Schedule by ID
+//delete single TodoList by ID
 router.delete('/:id', authFunc.checkAdminAuthenticated, (req, res) => {
-    Schedule.deleteOne({
+    TodoList.deleteOne({
         _id: req.params.id
     }).exec(function (err, response) {
         if (err) {
