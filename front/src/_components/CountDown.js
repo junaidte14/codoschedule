@@ -51,13 +51,13 @@ class CountDown extends Component {
         return (
             <>
                 <div className="countdown-wrapper">
-                    {(years>=0) && (
+                    {(years>0) && (
                         <div className={"countdown-item "+ (this.props.showBorder ? 'border border-primary': '')}>
                             {years}
                             <span>years</span>
                         </div>
                     )}
-                    {(months>=0) && (
+                    {(months>0) && (
                         <div className={"countdown-item "+ (this.props.showBorder ? 'border border-primary': '')}>
                             {this.props.showCircles && (
                                 <SVGCircle radius={monthsRadius} />
@@ -66,7 +66,7 @@ class CountDown extends Component {
                             <span>months</span>
                         </div>
                     )}
-                    {(days >= 0) && (
+                    {(days > 0) && (
                         <div className={"countdown-item "+ (this.props.showBorder ? 'border border-primary': '')}>
                             {this.props.showCircles && (
                                 <SVGCircle radius={daysRadius} />
