@@ -31,13 +31,13 @@ function getAll() {
     };
 }
 
-function getAllByAttr(attr) {
+function getAllByAttr(attr, abortController) {
     return dispatch => {
         dispatch({ 
             type: actionTypes.TODOLISTS.GETALLBYSCHEDULE_REQUEST 
         });
 
-        todolistService.getAllByAttr(attr)
+        todolistService.getAllByAttr(attr, abortController)
         .then(
             todolists => dispatch({ 
                 type: actionTypes.TODOLISTS.GETALLBYSCHEDULE_SUCCESS, 
@@ -60,12 +60,12 @@ function getItemById(id) {
     
             todolistService.getItemById(id)
             .then(
-                schedule => {
+                todolist => {
                     dispatch({ 
                         type: actionTypes.TODOLISTS.GETBYID_SUCCESS, 
-                        schedule 
+                        todolist 
                     });
-                    resolve(schedule);
+                    resolve(todolist);
                 },
                 error => {
                     dispatch({ 
@@ -79,82 +79,94 @@ function getItemById(id) {
     };
 }
 
-function addItem(schedule) {
+function addItem(item) {
     return dispatch => {
-        dispatch({ 
-            type: actionTypes.TODOLISTS.ADD_REQUEST 
-        });
+        return new Promise((resolve, reject) => {
+            dispatch({ 
+                type: actionTypes.TODOLISTS.ADD_REQUEST 
+            });
 
-        todolistService.addSchedule(schedule)
-        .then(
-            res => {
-                dispatch({ 
-                    type: actionTypes.TODOLISTS.ADD_SUCCESS
-                });
-                dispatch(alertActions.success('Schedule is successfully added!'));
-                
-            },
-            error => {
-                dispatch({ 
-                    type: actionTypes.TODOLISTS.ADD_FAILURE, 
-                    error 
-                });
-                dispatch(alertActions.error(error));
-            }
-        );
+            todolistService.addItem(item)
+            .then(
+                res => {
+                    item._id = res.data;
+                    dispatch({ 
+                        type: actionTypes.TODOLISTS.ADD_SUCCESS,
+                        newItem: item
+                    });
+                    dispatch(alertActions.success('Item is successfully added!'));
+                    resolve(res);
+                },
+                error => {
+                    dispatch({ 
+                        type: actionTypes.TODOLISTS.ADD_FAILURE, 
+                        error 
+                    });
+                    dispatch(alertActions.error(error));
+                    reject();
+                }
+            );
+        });
     };
 }
 
-function updateItem(id, schedule) {
+function updateItem(id, item) {
     return dispatch => {
-        dispatch({ 
-            type: actionTypes.TODOLISTS.UPDATE_REQUEST 
-        });
+        return new Promise((resolve, reject) => {
+            dispatch({ 
+                type: actionTypes.TODOLISTS.UPDATE_REQUEST 
+            });
 
-        todolistService.updateSchedule(id, schedule)
-        .then(
-            res => {
-                dispatch({ 
-                    type: actionTypes.TODOLISTS.UPDATE_SUCCESS,
-                    id,
-                    schedule
-                });
-                dispatch(alertActions.success('Schedule is successfully updated!'));
-                
-            },
-            error => {
-                dispatch({ 
-                    type: actionTypes.TODOLISTS.UPDATE_FAILURE, 
-                    error 
-                });
-                dispatch(alertActions.error(error));
-            }
-        );
+            todolistService.updateItem(id, item)
+            .then(
+                res => {
+                    dispatch({ 
+                        type: actionTypes.TODOLISTS.UPDATE_SUCCESS,
+                        id,
+                        item
+                    });
+                    dispatch(alertActions.success('Item is successfully updated!'));
+                    resolve(res);
+                },
+                error => {
+                    dispatch({ 
+                        type: actionTypes.TODOLISTS.UPDATE_FAILURE, 
+                        error 
+                    });
+                    dispatch(alertActions.error(error));
+                    reject();
+                }
+            );
+        });
     };
 }
 
 function deleteItem(id) {
     return dispatch => {
-        dispatch({ 
-            type: actionTypes.TODOLISTS.DELETE_REQUEST 
-        });
+        return new Promise((resolve, reject) => {
+            dispatch({ 
+                type: actionTypes.TODOLISTS.DELETE_REQUEST 
+            });
 
-        todolistService.deleteSchedule(id)
-        .then(
-            todolists => {
-                dispatch({ 
-                    type: actionTypes.TODOLISTS.DELETE_SUCCESS,
-                    todolists
-                });
-                dispatch(alertActions.success('Schedule is successfully deleted!'));
-            },
-            error => {
-                dispatch({ 
-                    type: actionTypes.TODOLISTS.DELETE_FAILURE, 
-                    error 
-                });
-                dispatch(alertActions.error(error));
-            }
-        );
+            todolistService.deleteItem(id)
+            .then(
+                res => {
+                    dispatch({ 
+                        type: actionTypes.TODOLISTS.DELETE_SUCCESS,
+                        id
+                    });
+                    dispatch(alertActions.success('Item is successfully deleted!'));
+                    resolve(res);
+                },
+                error => {
+                    dispatch({ 
+                        type: actionTypes.TODOLISTS.DELETE_FAILURE, 
+                        error 
+                    });
+                    dispatch(alertActions.error(error));
+                    reject();
+                }
+            );
+        });
     };
 }

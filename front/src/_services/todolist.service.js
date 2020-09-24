@@ -19,10 +19,11 @@ function getAll() {
     return fetch(`${vars.apiURL}todolists`, requestOptions).then(handleResponse);
 }
 
-function getAllByAttr(attr) {
+function getAllByAttr(attr, abortController) {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: authHeader(),
+        signal: abortController.signal
     };
 
     return fetch(`${vars.apiURL}todolists/schedule_id/${attr}`, requestOptions).then(handleResponse);

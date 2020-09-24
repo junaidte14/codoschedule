@@ -15,6 +15,7 @@ import LoginPage from '../pages/LoginPage';
 import ViewTask from '../_components/tasks/ViewTask';
 import AddTasks from '../_components/tasks/AddTask';
 import UpdateTask from '../_components/tasks/UpdateTask';
+import UpdateForm from '../_components/todolists/UpdateForm';
 import NotFound from '../_components/NotFound';
 import './App.css';
 
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/tasks/:id" component={ViewTask}/>
             <PrivateRoute path="/add-task" component={AddTasks} />
             <PrivateRoute path="/update-task/:id" component={UpdateTask}/>
+            <PrivateRoute path="/update-todo/:id" component={UpdateForm}/>
             <Route path="/login" component={LoginPage}/>
             <Route component={NotFound}/>
           </Switch>

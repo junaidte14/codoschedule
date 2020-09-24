@@ -24,7 +24,8 @@ router.post('/', authFunc.checkAdminAuthenticated, (req, res) => {
                 mongoose.connection.close();
                 res.status(200).send(JSON.stringify({
                     success: true,
-                    message: "TodoList is successfuly added!"
+                    message: "TodoList is successfuly added!",
+                    data: id
                 }));
             }
         });

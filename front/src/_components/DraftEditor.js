@@ -1,55 +1,93 @@
 import React, {useState} from 'react';
-import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
+import {Editor, EditorState, DefaultDraftBlockRenderMap, convertToRaw, convertFromRaw} from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import BlockStyleToolbar from "./blockStyles/BlockStyleToolbar";
 
-const DraftEditor = () =>{
+import TodoBlock from './blockStyles/TodoBlock';
 
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-    const logState = () => console.log(convertToRaw(editorState.getCurrentContent()));
-    const handleKeyCommand = (command) => {
-        const newState = RichUtils.handleKeyCommand(editorState, command)
-        if (newState) {
-            setEditorState(newState);
-            return 'handled';
-        }
-        return 'not-handled';
+import Immutable from 'immutable';
+
+// The example below deliberately only allows
+// 'heading-two' as the only valid block type and
+// updates the unstyled element to also become a h2.
+const blockRenderMap = Immutable.Map({
+    'todolist': {
+        element: 'div'
     }
+});
+
+// Include 'paragraph' as a valid block and updated the unstyled element but
+// keep support for other draft default block types
+const extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap);
+
+const myBlockStyleFn = (contentBlock) =>{
+    const type = contentBlock.getType();
+    if (type === 'todolist') {
+      return 'codo-block codo-block-todolist';
+    }
+}
+
+const DraftEditor = (props) =>{
+
+    const data = props.data;
+
+    let initialEditorState = null;
+    const readOnly = props.readOnly;
+
+    if (data) {
+        const rawContentFromStore = convertFromRaw(JSON.parse(data));
+        initialEditorState = EditorState.createWithContent(rawContentFromStore);
+    } else {
+        initialEditorState = EditorState.createEmpty();
+    }
+
+    const [editorState, setEditorState] = useState(initialEditorState);
+
+    const getEditorState = () => editorState;
     const onChange = (editorState) => {
         setEditorState(editorState);
-    }
-    const onUnderlineClick = () => {
-        onChange(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+        props.updateItems(convertToRaw(editorState.getCurrentContent()));
     }
 
-    const onBoldClick = () => {
-        onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+    const myBlockRenderer = (contentBlock) => {
+        const type = contentBlock.getType();
+        if (type === 'todolist') {
+          return {
+            component: TodoBlock,
+            editable: !readOnly,
+            props: {
+                onChange,
+                getEditorState,
+                readOnly
+            },
+          };
+        }
+    
+        if (type === 'unstyled') {
+            return {
+              component: TodoBlock,
+              editable: !readOnly,
+              props: {
+                onChange,
+                getEditorState,
+                readOnly
+              },
+            };
+        }
     }
 
-    const onItalicClick = () => {
-        onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-    }
-
-    const toggleBlockType = (blockType) => {
-        onChange(RichUtils.toggleBlockType(editorState, blockType));
-    };
     return (
         <div className="draft-editor">
-            {/* <button onClick={onUnderlineClick}>U</button>
-            <button onClick={onBoldClick}><b>B</b></button>
-            <button onClick={onItalicClick}><em>I</em></button> */}
-            <BlockStyleToolbar
-                editorState={editorState}
-                onToggle={toggleBlockType}
-            />
-            <Editor editorState={editorState} onChange={onChange} handleKeyCommand={handleKeyCommand}/>
-            <input
-                onClick={logState}
-                type="button"
-                value="Log State"
-            />
+            <div className="draft-editor-wrapper">
+                <Editor 
+                    editorState={editorState} 
+                    onChange={onChange} 
+                    blockRenderMap={extendedBlockRenderMap} 
+                    blockRendererFn={myBlockRenderer} 
+                    blockStyleFn={myBlockStyleFn}
+                    readOnly={readOnly}
+                />
+            </div>
         </div>
-        
     );
 }
 

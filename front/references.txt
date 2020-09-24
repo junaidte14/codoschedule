@@ -1,2 +1,6 @@
 https://jasonwatmore.com/post/2017/12/07/react-redux-jwt-authentication-tutorial-example
 https://github.com/cornflourblue/react-redux-jwt-authentication-example
+
+https://codepen.io/brijeshb42/pen/amojWq
+https://bitwiser.in/2016/08/31/implementing-todo-list-in-draft-js.html
+https://draftjs.org/docs/

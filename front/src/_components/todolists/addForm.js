@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { scheduleActions, alertActions } from '../../store/_actions';
+import { todolistActions, alertActions } from '../../store/_actions';
 import Spinner from '../Spinner';
 import DraftEditor from '../DraftEditor';
 
-const AddForm = () =>{
+const AddForm = (props) =>{
 
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState({});
     const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (e) =>{
@@ -29,18 +29,22 @@ const AddForm = () =>{
         }
     }
 
+    const updateItems = (items) => {
+        setItems(items);
+    }
+
     const submitForm = (e) =>{
         e.preventDefault();
         setSubmitted(true);
-        let tempTask = {
+        let tempItem = {
             name: name,
-            items: items
+            schedule_id: props.itemId,
+            items: JSON.stringify(items)
         }
-        if (tempTask.name && tempTask.items) {
-            dispatch(scheduleActions.addSchedule(tempTask));
-            setName('');
-            setItems([]);
-            setSubmitted(false);
+        if (tempItem.name && tempItem.items) {
+            dispatch(todolistActions.addItem(tempItem)).then(res => {
+                setSubmitted(false);
+            });
         }else{
             dispatch(alertActions.error('Please fill required fields'));
         }
@@ -54,16 +58,18 @@ const AddForm = () =>{
         <div className="card textcenter mt-20 rounded-0">
             <div className="card-body">
                 <h2>Add Todo List</h2>
-                <div className="col-md-10">
+                <div className="col-md-12 mb-2">
                     <input type="text" className={'form-control' + (submitted && !name ? ' is-invalid' : '')} name="name" placeholder="Task's Name" value={name} onChange={handleChange}/>
                     {submitted && !name &&
                         <div className="invalid-feedback">Name is required</div>
                     }
                 </div>
 
-                <DraftEditor />
+                <div className="col-md-12 mb-2">
+                    <DraftEditor updateItems={updateItems} data={null} readOnly={false}/>
+                </div>
 
-                <div className="col-md-12">
+                <div className="col-md-12 mb-2">
                     <button className="btn btn-primary ml-auto rounded-0" onClick={submitForm}>Save</button>
                     {loading &&
                         <Spinner showBlock={false}/>

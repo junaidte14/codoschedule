@@ -2,17 +2,19 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { todolistActions } from '../../store/_actions';
 import Spinner from '../Spinner';
+import SingleList from './SingleList';
 
 const ShowLists = (props) =>{
 
     const {itemId} = props;
     const dispatch = useDispatch();
     const todolistsState = useSelector(state => state.todolists, shallowEqual);
-
     const loading = todolistsState.loading;
     const todolists = todolistsState.items;
     useEffect( () => {
-        dispatch(todolistActions.getAllByAttr(itemId));
+        const abortController = new AbortController();
+        dispatch(todolistActions.getAllByAttr(itemId, abortController));
+        return () => abortController.abort();
     }, [dispatch, itemId]);
     return (
         <>
@@ -21,7 +23,7 @@ const ShowLists = (props) =>{
             }
             {!loading && todolists.length !== 0 &&
                 todolists.map(item => (
-                    <p>items found</p>
+                    <SingleList data={item} key={item._id}/>
                 ))
             }
             {!loading && todolists.length === 0 &&

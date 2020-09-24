@@ -70,6 +70,7 @@ export function todolists(state = initialState, action) {
     case actionTypes.TODOLISTS.ADD_SUCCESS:
       return {
         ...state,
+        items: [...state.items, action.newItem],
         actionLoader: false
       }
     case actionTypes.TODOLISTS.ADD_FAILURE:
@@ -108,19 +109,19 @@ export function todolists(state = initialState, action) {
     case actionTypes.TODOLISTS.DELETE_REQUEST:
       return {
         ...state,
-        actionLoader: true
+        loading: true
       }
     case actionTypes.TODOLISTS.DELETE_SUCCESS:
       return {
         ...state,
-        items: state.items.filter(e => e._id !== action.todolists.data),
-        actionLoader: false
+        items: state.items.filter(e => e._id !== action.id),
+        loading: false
       }
     case actionTypes.TODOLISTS.DELETE_FAILURE:
       return {
         ...state,
         error: action.error,
-        actionLoader: false
+        loading: false
       }
     default:
       return state

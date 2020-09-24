@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ShowLists from './ShowLists';
-import AddForm from './addForm';
+import AddForm from './AddForm';
 
 const TodoLists = (props) =>{
 
@@ -16,7 +16,7 @@ const TodoLists = (props) =>{
                 <span className="flex-nav-spacer"></span>
                 <ul className="nav">
                     <li className="nav-item">
-                        <span className="nav-link" style={{cursor: 'pointer'}} onClick={()=> {setAddForm(!addForm)}}>Add</span>
+                        <span className="nav-link" style={{cursor: 'pointer'}} onClick={()=> {setAddForm(!addForm)}}>{(!addForm)? 'Add': 'List'}</span>
                     </li>
                 </ul>
             </div>
@@ -25,7 +25,7 @@ const TodoLists = (props) =>{
                     <ShowLists itemId={itemId} user={user}/>
                 }
                 {addForm &&
-                    <AddForm />
+                    <AddForm itemId={itemId} setAddForm={setAddForm}/>
                 }
             </div>
         </div>
