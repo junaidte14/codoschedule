@@ -1,7 +1,7 @@
 {
   "name": "codoschedule",
   "version": "1.0.0",
-  "description": "An API for codoschedules react app using NodeJS and MongoDB",
+  "description": "A web app to manage tasks, events and schedules developed using React, NodeJS, MongoDB and Bootstrap.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
