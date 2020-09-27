@@ -123,7 +123,7 @@ function updateItem(id, item) {
                     dispatch({ 
                         type: actionTypes.TODOLISTS.UPDATE_SUCCESS,
                         id,
-                        item
+                        todolist: item
                     });
                     dispatch(alertActions.success('Item is successfully updated!'));
                     resolve(res);

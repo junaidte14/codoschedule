@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
+import {FaBackward} from 'react-icons/fa';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { todolistActions, alertActions } from '../../store/_actions';
 import Spinner from '../Spinner';
@@ -73,8 +75,14 @@ const UpdateForm = (props) =>{
     }else{
         return (
             <div className="card textcenter mt-20 rounded-0">
+                <div className="card-header flex-nav-wrapper">
+                    <span>Update</span>
+                    <span className="flex-nav-spacer"></span>
+                    <Link className="btn btn-sm text-primary" to={"/tasks/"+schedule_id}>
+                        <FaBackward />
+                    </Link>
+                </div>
                 <div className="card-body">
-                    <h2>Update Todo List</h2>
                     <div className="col-md-12 mb-2">
                         <input type="text" className={'form-control' + (submitted && !name ? ' is-invalid' : '')} name="name" placeholder="Task's Name" value={name} onChange={handleChange}/>
                         {submitted && !name &&
