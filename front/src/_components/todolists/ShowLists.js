@@ -6,7 +6,7 @@ import SingleList from './SingleList';
 
 const ShowLists = (props) =>{
 
-    const {itemId} = props;
+    const {itemId, user} = props;
     const dispatch = useDispatch();
     const todolistsState = useSelector(state => state.todolists, shallowEqual);
     const loading = todolistsState.loading;
@@ -23,7 +23,7 @@ const ShowLists = (props) =>{
             }
             {!loading && todolists.length !== 0 &&
                 todolists.map(item => (
-                    <SingleList data={item} key={item._id}/>
+                    <SingleList data={item} key={item._id} user={user}/>
                 ))
             }
             {!loading && todolists.length === 0 &&

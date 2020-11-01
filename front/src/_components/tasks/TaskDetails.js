@@ -44,14 +44,14 @@ const TaskDetails = (props) =>{
                             <Link className="btn btn-sm text-primary ml-2" to={"/update-task/"+item._id}>
                                 <FaEdit />
                             </Link>
-                            {
-                                (showDetails) && (
-                                    <Link className="btn btn-sm text-primary ml-2" to={"/tasks/"+item._id}>
-                                        <FaBars />
-                                    </Link>
-                                )
-                            }
                             </>
+                        )
+                    }
+                    {
+                        (showDetails) && (
+                            <Link className="btn btn-sm text-primary ml-2" to={"/tasks/"+item._id}>
+                                <FaBars />
+                            </Link>
                         )
                     }
                 </div>

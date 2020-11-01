@@ -15,9 +15,11 @@ const TodoLists = (props) =>{
                 </span>
                 <span className="flex-nav-spacer"></span>
                 <ul className="nav">
-                    <li className="nav-item">
-                        <span className="nav-link" style={{cursor: 'pointer'}} onClick={()=> {setAddForm(!addForm)}}>{(!addForm)? 'Add': 'List'}</span>
-                    </li>
+                    {user &&
+                        <li className="nav-item">
+                            <span className="nav-link" style={{cursor: 'pointer'}} onClick={()=> {setAddForm(!addForm)}}>{(!addForm)? 'Add': 'List'}</span>
+                        </li>
+                    }
                 </ul>
             </div>
             <div className="card-body">

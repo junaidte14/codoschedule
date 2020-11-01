@@ -7,7 +7,7 @@ import DraftEditor from '../DraftEditor';
 
 const SingleList = (props) =>{
 
-    const {data} = props;
+    const {data, user} = props;
     const dispatch = useDispatch();
     const deleteItem = (id) => {
         dispatch(todolistActions.deleteItem(id));
@@ -19,14 +19,20 @@ const SingleList = (props) =>{
                 <h3>{data.name}</h3>
                 <span className="flex-nav-spacer"></span>
                 <ul className="nav">
-                    <li className="nav-item">
-                        <Link className="btn btn-sm text-primary" to={"/update-todo/"+data._id}>
-                            <FaEdit />
-                        </Link>
-                        <button className="btn btn-sm text-danger" onClick={() => {deleteItem(data._id)}}>
-                            <FaTrash />
-                        </button>
-                    </li>
+                    {user &&
+                        <>
+                        <li className="nav-item">
+                            <Link className="btn btn-sm text-primary" to={"/update-todo/"+data._id}>
+                                <FaEdit />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <button className="btn btn-sm text-danger" onClick={() => {deleteItem(data._id)}}>
+                                <FaTrash />
+                            </button>
+                        </li>
+                        </>
+                    }
                 </ul>
             </div>
             <DraftEditor data={data.items} readOnly={true}/>
